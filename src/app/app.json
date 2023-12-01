@@ -8,7 +8,7 @@
     "crm": {
       "cards": [
         {
-          "file": "extensions/countdown.json"
+          "file": "extensions/01-christmas-countdown/countdown.json"
         }
       ]
     }

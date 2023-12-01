@@ -1,11 +1,11 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Example Card",
-    "uid": "get_started_card",
+    "title": "Christmas Countdown",
+    "uid": "01_christmas_countdown",
     "location": "crm.record.tab",
     "module": {
-      "file": "Example.jsx"
+      "file": "Countdown.jsx"
     },
     "objectTypes": [{ "name": "contacts" }]
   }

@@ -5,3 +5,6 @@
 - Does not need to be a totally new extension per day, but should useful addition
 - Follow along with posted challenges, or do your own
 
+### Day 1: Christmas Countdown
+
+![Alt text](<src/app/extensions/01-christmas-countdown.gif>)

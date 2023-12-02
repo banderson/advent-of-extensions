@@ -35,7 +35,7 @@ const Extension = () => {
     return () => {
       clearInterval(interval);
     };
-  });
+  }, []);
 
   const { days, hours, minutes, seconds } = countdown;
 

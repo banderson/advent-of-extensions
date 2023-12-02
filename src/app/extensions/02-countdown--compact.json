@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Days until Christmas!",
+    "uid": "02_christmas_countdown_compact",
+    "location": "crm.record.sidebar",
+    "module": {
+      "file": "CompactCountdown.jsx"
+    },
+    "objectTypes": [{ "name": "contacts" }]
+  }
+}

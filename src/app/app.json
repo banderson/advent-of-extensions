@@ -9,6 +9,9 @@
       "cards": [
         {
           "file": "extensions/01-countdown.json"
+        },
+        {
+          "file": "extensions/02-countdown--compact.json"
         }
       ]
     }

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Statistics, StatisticsItem, hubspot } from "@hubspot/ui-extensions";
 import { getDiff, millisecondsInOneSecond } from "./date-utils";
 
-const CHRISTMAS = new Date(2023, 11, 25);
-
 const Extension = () => {
-  const [countdown, setCountdown] = useState(getDiff(new Date(), CHRISTMAS));
+  const [countdown, setCountdown] = useState(getDiff());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountdown(getDiff(new Date(), CHRISTMAS));
+      setCountdown(getDiff());
     }, millisecondsInOneSecond);
 
     return () => {

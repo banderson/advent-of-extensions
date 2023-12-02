@@ -7,4 +7,4 @@
 
 ### Day 1: Christmas Countdown
 
-![Alt text](<src/app/extensions/01-christmas-countdown.gif>)
+!["Christmas Countdown" UI Extension with live updating ticker of days, hours, minutes and seconds until Christmas day](<src/app/extensions/01-christmas-countdown.gif>)

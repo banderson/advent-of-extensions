@@ -40,3 +40,8 @@
   - `endpoint` notes: does this mean I can't include endpoint
     - > "Please note: to call an endpoint in a serverless function, your account must have a CMS Hub Enterprise subscription and a Sales Hub or Service Hub Enterprise subscription."
   - trailing comma in `endpoint` object example JSON
+
+
+Day 4:
+ - We include `type` prop in the TS types?
+ - TableHeader vs TableHead?

@@ -22,3 +22,10 @@ Our first feature is up! But it's a bit big for some users. We want to provide a
 A simple feature that we'll use to keep the mood light during this challenge and the holiday season in general. We'll pull holiday-specific jokes from an API and display them in a CRM card that can work in the sidebar or the middle pane.
 
 !["Holiday Humor"](<src/app/extensions/03-holiday-humor.png>)
+
+
+### Day 4: Advent Calendar View (so meta)
+
+Today I'm going to take inspiration from what @sejal built during her first two days of the challenge: a pretty kick-ass calendar view of the days leading up the Christmas. However, rather than having this calendar serve as the countdown, I'm going to use it as a way to self-document each feature built per-day, and list them right on the calendar day entries themselves.
+
+!["Meta View of the Advent projects"](<src/app/extensions/04-advent-calendar.png>)

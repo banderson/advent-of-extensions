@@ -15,6 +15,9 @@
         },
         {
           "file": "extensions/03-holiday-humor.json"
+        },
+        {
+          "file": "extensions/04-advent-meta.json"
         }
       ]
     }

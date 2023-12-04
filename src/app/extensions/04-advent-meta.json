@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Advent Projects",
+    "uid": "04_advent_projects_by_day",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "Advent.jsx"
+    },
+    "objectTypes": [{ "name": "contacts" }]
+  }
+}

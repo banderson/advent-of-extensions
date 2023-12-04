@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Holiday Humor",
+    "uid": "03_holiday_humor",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "Humor.jsx"
+    },
+    "objectTypes": [{ "name": "contacts" }]
+  }
+}

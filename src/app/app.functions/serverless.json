@@ -1,0 +1,8 @@
+{
+  "appFunctions": {
+    "jokes": {
+      "file": "jokes.js",
+      "secrets": []
+    }
+  }
+}

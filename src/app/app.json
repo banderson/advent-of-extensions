@@ -12,6 +12,9 @@
         },
         {
           "file": "extensions/02-countdown--compact.json"
+        },
+        {
+          "file": "extensions/03-holiday-humor.json"
         }
       ]
     }

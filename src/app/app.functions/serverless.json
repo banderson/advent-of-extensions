@@ -2,7 +2,11 @@
   "appFunctions": {
     "jokes": {
       "file": "jokes.js",
-      "secrets": []
+      "secrets": [],
+      "endpoint": {
+        "path": "path/to/endpoint",
+        "method": ["GET"]
+      }
     }
   }
 }

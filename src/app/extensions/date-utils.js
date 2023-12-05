@@ -20,3 +20,34 @@ export const getDiff = (from = new Date(), to = CHRISTMAS) => {
 
   return { days, hours, minutes, seconds };
 };
+
+export const getCalendarWeeks = (
+  month = new Date().getMonth(),
+  year = new Date().getFullYear()
+) => {
+  const firstDayOffset = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month, 0).getDate() + 1;
+  const daysPerWeek = 7;
+
+  const introSpacers = firstDayOffset;
+  const outroSpacers =
+    daysPerWeek - ((firstDayOffset + totalDays) % daysPerWeek);
+
+  let arraySize = introSpacers + totalDays + outroSpacers;
+  // arraySize += daysPerWeek - (arraySize % daysPerWeek);
+
+  const days = new Array(arraySize).fill("").map((value, i) => {
+    if (i < firstDayOffset || i >= firstDayOffset + totalDays) {
+      return value;
+    }
+
+    return i + 1 - firstDayOffset;
+  });
+
+  let weeks = [];
+  for (let i = 0; i < days.length; i += daysPerWeek) {
+    weeks.push(days.slice(i, i + daysPerWeek));
+  }
+
+  return weeks;
+};

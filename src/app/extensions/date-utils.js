@@ -34,7 +34,6 @@ export const getCalendarWeeks = (
     daysPerWeek - ((firstDayOffset + totalDays) % daysPerWeek);
 
   let arraySize = introSpacers + totalDays + outroSpacers;
-  // arraySize += daysPerWeek - (arraySize % daysPerWeek);
 
   const days = new Array(arraySize).fill("").map((value, i) => {
     if (i < firstDayOffset || i >= firstDayOffset + totalDays) {

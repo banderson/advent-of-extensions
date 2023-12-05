@@ -43,5 +43,8 @@
 
 
 Day 4:
- - We include `type` prop in the TS types?
- - TableHeader vs TableHead?
+ - Link#href="#" renders external link icon?
+ - Can we support button#variant="link" or anything I can use for clickable things?
+ - vertical spacing...
+ - Panels:
+   - local dev update closes open panel

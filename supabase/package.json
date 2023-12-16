@@ -1,0 +1,14 @@
+{
+  "name": "advent-supabase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Anderson<banderson87@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "supabase": "^1.123.4"
+  }
+}

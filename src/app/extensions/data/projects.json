@@ -29,7 +29,12 @@
     "image": "05-secret-santa.png",
     "symbol": "asset:secret-santa.png"
   },
-  "15": null,
+  "14": {
+    "title": "Hello (Public) World",
+    "detail": "This will be a multi-day feature, but got a good head start today: getting a minimal website up and running with JS Rendering @ https://www.ui-extensibility.com/advent-2023",
+    "image": "14-hello-public-world.png",
+    "symbol": "🌐"
+  },
   "16": {
     "title": "The Gift of Script",
     "detail": "So far, I've been uploading the preview image for each example to GitHub, and then coming back into the source afterward to use the GitHub-generated URL for the image to show a preview in the Project Details Panel. Not a great workflow. It's time to help ourselves by using a little scripting magic to store those images right in our own portal's Filemanager, which also lets us have the image URLs ready to go when we hit publish rather than needing a followup task to clean that up.",

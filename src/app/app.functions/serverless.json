@@ -7,6 +7,22 @@
         "path": "path/to/endpoint",
         "method": ["GET"]
       }
+    },
+    "secret-santa": {
+      "file": "secret-santa.js",
+      "secrets": [],
+      "endpoint": {
+        "path": "secret-santa",
+        "method": ["GET"]
+      }
+    },
+    "get-lists": {
+      "file": "get-lists.js",
+      "secrets": [],
+      "endpoint": {
+        "path": "get-lists",
+        "method": ["GET"]
+      }
     }
   }
 }

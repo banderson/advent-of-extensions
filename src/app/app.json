@@ -26,6 +26,9 @@
         },
         {
           "file": "extensions/04-advent-meta.json"
+        },
+        {
+          "file": "extensions/05-secret-santa.json"
         }
       ]
     }

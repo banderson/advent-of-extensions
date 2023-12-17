@@ -2,7 +2,14 @@ import fs from "fs";
 import path from "path";
 import hubspotClient from "./api-client.mjs";
 
-const filesToUpload = ["images/secret-santa.png"];
+const filesToUpload = [
+  "images/secret-santa.png",
+  "images/01-christmas-countdown.gif",
+  "images/02-compact-countdown.png",
+  "images/03-holiday-humor.png",
+  "images/04-advent-calendar.png",
+  "images/05-secret-santa.png",
+];
 const fileMgrOptions = {
   rootPath: "advent",
   fileSettings: {

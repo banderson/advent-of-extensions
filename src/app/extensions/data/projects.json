@@ -26,7 +26,7 @@
   "5": {
     "title": "Secret Santa",
     "detail": "Today I'm going to take inspiration from what @sejal built during her first two days of the challenge: a pretty kick-ass calendar view of the days leading up the Christmas. However, rather than having this calendar serve as the countdown, I'm going to use it as a way to self-document each feature built per-day, and list them right on the calendar day entries themselves.",
-    "image": "04-advent-calendar.png",
+    "image": "05-secret-santa.png",
     "symbol": "asset:secret-santa.png"
   }
 }

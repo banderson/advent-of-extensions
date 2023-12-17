@@ -2,7 +2,15 @@
   "name": "Advent of Extensions",
   "description": "Collection of Christmas-themed extensions and features built on HubSpot's developer platform.",
   "uid": "2023-advent-of-extensions",
-  "scopes": ["crm.objects.contacts.read", "crm.objects.contacts.write"],
+  "scopes": [
+    "crm.objects.contacts.read",
+    "crm.objects.contacts.write",
+    "crm.lists.read",
+    "filemanager.write",
+    "files.ui_hidden.write",
+    "files",
+    "files.write"
+  ],
   "public": false,
   "extensions": {
     "crm": {

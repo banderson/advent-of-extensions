@@ -14,8 +14,13 @@ import {
   Flex,
 } from "@hubspot/ui-extensions";
 import React from "react";
-import { projects } from "./projects";
+import projects from "./data/projects.json";
+import assets from "./data/assets.json";
 import { getCalendarWeeks } from "./date-utils";
+
+const Extension = () => {
+  return <Calendar />;
+};
 
 const ProjectPanel = ({ day }) => {
   const project = projects[day];
@@ -26,7 +31,9 @@ const ProjectPanel = ({ day }) => {
   return (
     <Panel title="Advent Project Details" id="project-detail" width="medium">
       <Flex direction="column" gap="md">
-        <Heading>{`${project.symbol} ${project.title}`}</Heading>
+        <Heading>
+          {getProjectSymbol(day)} {project.title}
+        </Heading>
         <Text>{project.detail}</Text>
         <Image
           src={`https://github.com/banderson/advent-of-extensions/raw/main/src/app/extensions/${project.image}`}
@@ -46,13 +53,15 @@ const Calendar = () => {
       <ProjectPanel day={selectedDay} />
       <Table>
         <TableHead>
-          <TableHeader>Sun</TableHeader>
-          <TableHeader>Mon</TableHeader>
-          <TableHeader>Tues</TableHeader>
-          <TableHeader>Wed</TableHeader>
-          <TableHeader>Thu</TableHeader>
-          <TableHeader>Fri</TableHeader>
-          <TableHeader>Sat</TableHeader>
+          <TableRow>
+            <TableHeader>Sun</TableHeader>
+            <TableHeader>Mon</TableHeader>
+            <TableHeader>Tues</TableHeader>
+            <TableHeader>Wed</TableHeader>
+            <TableHeader>Thu</TableHeader>
+            <TableHeader>Fri</TableHeader>
+            <TableHeader>Sat</TableHeader>
+          </TableRow>
         </TableHead>
         <TableBody>
           {weeks.map((week) => {
@@ -70,7 +79,7 @@ const Calendar = () => {
                             reactions.openPanel("project-detail");
                           }}
                         >
-                          {projects[day].symbol}
+                          {getProjectSymbol(day)}
                         </Link>
                       </TableCell>
                     );
@@ -104,8 +113,14 @@ const Calendar = () => {
   );
 };
 
-const Extension = () => {
-  return <Calendar />;
-};
-
 hubspot.extend(() => <Extension />);
+
+function getProjectSymbol(day) {
+  const { symbol } = projects[day];
+  if (typeof symbol === "string" && symbol.startsWith("asset:")) {
+    const { url } = assets[symbol.replace("asset:", "")];
+    return <Image src={url} height={18} />;
+  }
+
+  return symbol;
+}

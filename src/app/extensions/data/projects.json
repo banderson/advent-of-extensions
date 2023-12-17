@@ -28,5 +28,12 @@
     "detail": "Today I'm going to take inspiration from what @sejal built during her first two days of the challenge: a pretty kick-ass calendar view of the days leading up the Christmas. However, rather than having this calendar serve as the countdown, I'm going to use it as a way to self-document each feature built per-day, and list them right on the calendar day entries themselves.",
     "image": "05-secret-santa.png",
     "symbol": "asset:secret-santa.png"
+  },
+  "15": null,
+  "16": {
+    "title": "The Gift of Script",
+    "detail": "So far, I've been uploading the preview image for each example to GitHub, and then coming back into the source afterward to use the GitHub-generated URL for the image to show a preview in the Project Details Panel. Not a great workflow. It's time to help ourselves by using a little scripting magic to store those images right in our own portal's Filemanager, which also lets us have the image URLs ready to go when we hit publish rather than needing a followup task to clean that up.",
+    "image": "16-gift-of-script.png",
+    "symbol": "🤖"
   }
 }

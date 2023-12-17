@@ -9,6 +9,7 @@ const filesToUpload = [
   "images/03-holiday-humor.png",
   "images/04-advent-calendar.png",
   "images/05-secret-santa.png",
+  "images/16-gift-of-script.png",
 ];
 const fileMgrOptions = {
   rootPath: "advent",

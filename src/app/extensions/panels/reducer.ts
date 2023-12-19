@@ -1,67 +1,72 @@
 import { Reducer, useCallback, useReducer } from "react";
 import { runValidation } from "./validation";
+import { produce } from "immer";
 
 interface FormState {
   success: boolean | null;
-  fields: any;
-  values: any;
-  dirty: any;
-  touched: any;
+  fields: {};
+  values: {};
+  dirty: {};
+  touched: {};
 }
 
 type Action =
-  | { type: "touch"; payload: Partial<FormState> & { fieldName: string } }
-  | { type: "change"; payload: Partial<FormState> & { fieldName: string } }
-  | { type: "submit" }
+  | {
+      type: "touch";
+      payload: Pick<FormState, "touched"> & { fieldName: string };
+    }
+  | {
+      type: "change";
+      payload: Pick<FormState, "values" | "dirty"> & { fieldName: string };
+    }
+  | {
+      type: "submit";
+      payload: Pick<FormState, "success" | "fields">;
+    }
   | { type: "reset" };
 
 const defaultState: FormState = {
-  success: null,
+  success: false,
   fields: {},
   values: {},
   dirty: {},
   touched: {},
 };
 
-const validationReducer: Reducer<FormState, Action> = (
-  state = defaultState,
-  action
-) => {
-  switch (action.type) {
-    case "touch":
-      const nextTouched = {
-        ...state.touched,
-        ...action.payload.touched,
-      };
-      return {
-        ...state,
-        touched: nextTouched,
-        ...runValidation(state.values, nextTouched),
-      };
-    case "change":
-      return {
-        ...state,
-        values: {
-          ...state.values,
-          ...action.payload.values,
-        },
-        dirty: {
-          ...state.dirty,
-          ...action.payload.dirty,
-        },
-        ...runValidation(state.values, state.touched),
-      };
-    case "submit":
-      return {
-        ...state,
-        ...runValidation(state.values),
-      };
-    case "reset":
-      return defaultState;
-    default:
-      return state;
+const validationReducer: Reducer<FormState, Action> = produce(
+  (draft, action) => {
+    switch (action.type) {
+      case "touch":
+        const { fieldName } = action.payload;
+        draft.touched[fieldName] = true;
+        draft.fields[fieldName] = runValidation(
+          draft.values,
+          draft.touched
+        ).fields[fieldName];
+        break;
+
+      case "change":
+        const { fieldName: field } = action.payload;
+        draft.values[field] = action.payload.values[field];
+        draft.dirty[field] = true;
+        draft.fields[field] = runValidation(draft.values, draft.touched).fields[
+          field
+        ];
+        break;
+
+      case "submit":
+        draft.success = action.payload.success!;
+        draft.fields = action.payload.fields;
+        break;
+
+      case "reset":
+        draft = defaultState;
+        break;
+      default:
+        draft = draft;
+    }
   }
-};
+);
 
 interface RegisterProps {
   onChange?: (evt: any) => any;
@@ -79,9 +84,14 @@ export const useProjectFormValidation = () => {
   const handleSubmit = useCallback(
     (handler) =>
       (evt, ...args) => {
-        dispatch({ type: "submit" });
+        const update: Action = {
+          type: "submit",
+          payload: { ...runValidation(state.values) },
+        };
+        dispatch(update);
+
         // manually generate state to not wait for next render
-        const { success } = validationReducer(state, { type: "submit" });
+        const { success } = validationReducer(state, update);
         if (success) {
           return handler(state.values, ...args);
         }

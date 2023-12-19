@@ -12,6 +12,7 @@ interface FormState {
 type Action =
   | { type: "touch"; payload: Partial<FormState> & { fieldName: string } }
   | { type: "change"; payload: Partial<FormState> & { fieldName: string } }
+  | { type: "submit" }
   | { type: "reset" };
 
 const defaultState: FormState = {
@@ -28,28 +29,33 @@ const validationReducer: Reducer<FormState, Action> = (
 ) => {
   switch (action.type) {
     case "touch":
+      const nextTouched = {
+        ...state.touched,
+        ...action.payload.touched,
+      };
       return {
         ...state,
-        touched: {
-          ...state.touched,
-          ...action.payload.touched,
+        touched: nextTouched,
+        ...runValidation(state.values, nextTouched),
+      };
+    case "change":
+      return {
+        ...state,
+        values: {
+          ...state.values,
+          ...action.payload.values,
+        },
+        dirty: {
+          ...state.dirty,
+          ...action.payload.dirty,
         },
         ...runValidation(state.values, state.touched),
       };
-    case "change":
-      if (state.fields)
-        return {
-          ...state,
-          values: {
-            ...state.values,
-            ...action.payload.values,
-          },
-          dirty: {
-            ...state.dirty,
-            ...action.payload.dirty,
-          },
-          ...runValidation(state.values, state.touched),
-        };
+    case "submit":
+      return {
+        ...state,
+        ...runValidation(state.values),
+      };
     case "reset":
       return defaultState;
     default:
@@ -73,7 +79,10 @@ export const useProjectFormValidation = () => {
   const handleSubmit = useCallback(
     (handler) =>
       (evt, ...args) => {
-        if (state.success) {
+        dispatch({ type: "submit" });
+        // manually generate state to not wait for next render
+        const { success } = validationReducer(state, { type: "submit" });
+        if (success) {
           return handler(state.values, ...args);
         }
       },
@@ -98,6 +107,7 @@ export const useProjectFormValidation = () => {
       const { onChange = identity, onBlur = identity } = props;
 
       return {
+        name: fieldName,
         ...fieldState,
         onBlur: (evt) => {
           dispatch({

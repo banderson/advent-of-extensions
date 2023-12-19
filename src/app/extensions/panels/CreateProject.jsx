@@ -47,42 +47,18 @@ export default function CreateProjectPanel({ runServerless }) {
     >
       <Form onSubmit={handleSubmit} preventDefault>
         <Flex direction="column" gap="xs">
-          {isValid && (
-            <Alert title="Validation errors" variant="warning">
-              <Text>
-                There were errors in your form submission. Please review the
-                issues highlighted below and try again.
-              </Text>
-            </Alert>
-          )}
           <Heading>Create Project:</Heading>
           <Flex direction="row" gap="xs">
             <Box flex={1}>
-              <Input
-                label="Symbol"
-                name="symbol"
-                required
-                {...register("symbol")}
-              />
+              <Input label="Symbol" required {...register("symbol")} />
             </Box>
             <Box flex={11}>
-              <Input
-                label="Project Title"
-                name="title"
-                required
-                {...register("title")}
-              />
+              <Input label="Project Title" required {...register("title")} />
             </Box>
           </Flex>
-          <TextArea
-            label="Detail"
-            name="detail"
-            required
-            {...register("detail")}
-          />
+          <TextArea label="Detail" required {...register("detail")} />
           <Select
             label="Screenshot"
-            name="image"
             required
             options={Object.keys(assets).map((key) => ({
               label: key,
@@ -100,7 +76,6 @@ export default function CreateProjectPanel({ runServerless }) {
             })}
           />
           <DateInput
-            name="date"
             label="Completion Date"
             min={{ date: 1, month: 11, year: 2023 }}
             max={{ date: 25, month: 11, year: 2023 }}

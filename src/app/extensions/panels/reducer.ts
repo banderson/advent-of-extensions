@@ -89,6 +89,15 @@ export const useProjectFormValidation = () => {
     [state]
   );
 
+  const handleReset = useCallback(
+    (handler) =>
+      (evt, ...args) => {
+        dispatch({ type: "reset" });
+        return handler(state.values, ...args);
+      },
+    [state]
+  );
+
   const reset = useCallback(() => {
     return dispatch({ type: "reset" });
   }, []);
@@ -144,6 +153,7 @@ export const useProjectFormValidation = () => {
   return {
     register,
     handleSubmit,
+    handleReset,
     isValid: !!state.success,
     getValues: () => state.values,
     reset,

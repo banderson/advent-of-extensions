@@ -10,15 +10,14 @@ import {
   TextArea,
   ButtonRow,
   Box,
-  Alert,
-  Text,
 } from "@hubspot/ui-extensions";
 import React, { useCallback } from "react";
 import assets from "../data/assets.json";
 import { useProjectFormValidation } from "./reducer";
 
 export default function CreateProjectPanel({ runServerless }) {
-  const { register, handleSubmit, isValid, reset } = useProjectFormValidation();
+  const { register, handleSubmit, handleReset, reset } =
+    useProjectFormValidation();
 
   const onSubmit = useCallback((values, reactions) => {
     return runServerless({
@@ -32,6 +31,10 @@ export default function CreateProjectPanel({ runServerless }) {
       .catch(console.error);
   }, []);
 
+  const onReset = useCallback(() => {
+    console.log("reset ===>!");
+  }, []);
+
   return (
     <Panel
       id="create-project"
@@ -39,8 +42,19 @@ export default function CreateProjectPanel({ runServerless }) {
       width="md"
       footer={
         <ButtonRow>
-          <Button onClick={handleSubmit(onSubmit)} type="submit">
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            variant="primary"
+            type="submit"
+          >
             Submit
+          </Button>
+          <Button
+            onClick={handleReset(onReset)}
+            variant="secondary"
+            type="reset"
+          >
+            Reset
           </Button>
         </ButtonRow>
       }

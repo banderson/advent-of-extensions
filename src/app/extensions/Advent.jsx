@@ -1,9 +1,6 @@
 import {
-  Heading,
-  Image,
   hubspot,
   Link,
-  Panel,
   Table,
   TableBody,
   TableCell,
@@ -11,39 +8,18 @@ import {
   TableHeader,
   TableRow,
   Text,
-  Flex,
 } from "@hubspot/ui-extensions";
 import React from "react";
 import projects from "./data/projects.json";
-import assets from "./data/assets.json";
+import ProjectPanel, { getProjectSymbol } from "./panels/ProjectDetail";
+import CreateProjectPanel from "./panels/CreateProject";
 import { getCalendarWeeks } from "./date-utils";
 
-const Extension = () => {
-  return <Calendar />;
-};
+hubspot.extend(({ runServerlessFunction }) => (
+  <Calendar runServerless={runServerlessFunction} />
+));
 
-const ProjectPanel = ({ day }) => {
-  const project = projects[day];
-  if (!project) {
-    return null;
-  }
-
-  return (
-    <Panel title="Advent Project Details" id="project-detail" width="medium">
-      <Flex direction="column" gap="md">
-        <Heading>
-          {getProjectSymbol(day)} {project.title}
-        </Heading>
-        <Text>{project.detail}</Text>
-        <Image
-          src={`https://github.com/banderson/advent-of-extensions/raw/main/src/app/extensions/${project.image}`}
-        />
-      </Flex>
-    </Panel>
-  );
-};
-
-const Calendar = () => {
+const Calendar = ({ runServerless }) => {
   const [selectedDay, setSelectedDay] = React.useState(null);
 
   const weeks = getCalendarWeeks();
@@ -51,6 +27,7 @@ const Calendar = () => {
   return (
     <>
       <ProjectPanel day={selectedDay} />
+      <CreateProjectPanel runServerless={runServerless} />
       <Table>
         <TableHead>
           <TableRow>
@@ -94,13 +71,22 @@ const Calendar = () => {
 
                   return (
                     <TableCell>
-                      <Text
-                        format={{
-                          fontWeight: day === today ? "bold" : "regular",
+                      <Link
+                        href=""
+                        preventDefault
+                        onClick={(__event, reactions) => {
+                          setSelectedDay(day);
+                          reactions.openPanel("create-project");
                         }}
                       >
-                        {`${symbol} ${day} ${symbol}`}
-                      </Text>
+                        <Text
+                          format={{
+                            fontWeight: day === today ? "bold" : "regular",
+                          }}
+                        >
+                          {`${symbol} ${day} ${symbol}`}
+                        </Text>
+                      </Link>
                     </TableCell>
                   );
                 })}
@@ -112,15 +98,3 @@ const Calendar = () => {
     </>
   );
 };
-
-hubspot.extend(() => <Extension />);
-
-function getProjectSymbol(day) {
-  const { symbol } = projects[day];
-  if (typeof symbol === "string" && symbol.startsWith("asset:")) {
-    const { url } = assets[symbol.replace("asset:", "")];
-    return <Image src={url} height={18} />;
-  }
-
-  return symbol;
-}

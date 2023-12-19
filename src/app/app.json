@@ -9,7 +9,9 @@
     "filemanager.write",
     "files.ui_hidden.write",
     "files",
-    "files.write"
+    "files.write",
+    "hubdb",
+    "crm.import"
   ],
   "public": false,
   "extensions": {

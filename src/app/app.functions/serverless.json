@@ -23,6 +23,14 @@
         "path": "get-lists",
         "method": ["GET"]
       }
+    },
+    "create-project": {
+      "file": "create-project.js",
+      "secrets": [],
+      "endpoint": {
+        "path": "create-project",
+        "method": ["GET"]
+      }
     }
   }
 }

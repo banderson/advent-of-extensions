@@ -1,3 +1,6 @@
 {
-  "name": "app.functions"
+  "name": "app.functions",
+  "dependencies": {
+    "@hubspot/api-client": "^9.0.0"
+  }
 }

@@ -15,7 +15,8 @@ import React, { useCallback } from "react";
 import assets from "../data/assets.json";
 import { useProjectFormValidation } from "./reducer";
 
-export default function CreateProjectPanel({ runServerless }) {
+export default function CreateProjectPanel({ runServerless, day }) {
+  const defaultDate = day ? { date: day, month: 11, year: 2023 } : undefined;
   const { register, handleSubmit, handleReset, reset } =
     useProjectFormValidation();
 
@@ -93,6 +94,7 @@ export default function CreateProjectPanel({ runServerless }) {
             label="Completion Date"
             min={{ date: 1, month: 11, year: 2023 }}
             max={{ date: 25, month: 11, year: 2023 }}
+            defaultValue={defaultDate}
             required
             {...register("day", { onChange: (evt = {}) => evt.date })}
           />

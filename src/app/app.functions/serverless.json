@@ -31,6 +31,14 @@
         "path": "create-project",
         "method": ["GET"]
       }
+    },
+    "projects": {
+      "file": "projects.js",
+      "secrets": [],
+      "endpoint": {
+        "path": "projects",
+        "method": ["GET"]
+      }
     }
   }
 }

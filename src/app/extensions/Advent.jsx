@@ -9,25 +9,40 @@ import {
   TableRow,
   Text,
 } from "@hubspot/ui-extensions";
-import React from "react";
-import projects from "./data/projects.json";
+import React, { useEffect } from "react";
 import ProjectPanel, { getProjectSymbol } from "./panels/ProjectDetail";
 import CreateProjectPanel from "./panels/CreateProject";
 import { getCalendarWeeks } from "./date-utils";
 
-hubspot.extend(({ runServerlessFunction }) => (
+hubspot.extend(({ runServerlessFunction, actions }) => (
   <Calendar runServerless={runServerlessFunction} />
 ));
 
 const Calendar = ({ runServerless }) => {
   const [selectedDay, setSelectedDay] = React.useState(null);
+  const [projects, setProjects] = React.useState({});
+  const today = new Date().getDate();
+
+  useEffect(() => {
+    runServerless({ name: "projects" }).then((data) => {
+      setProjects(
+        data.response.results
+          .filter((row) => !!row.values.day)
+          .reduce((memo, value) => {
+            const day = value.values.day;
+            memo[day] = value.values;
+            return memo;
+          }, {})
+      );
+    });
+  }, []);
 
   const weeks = getCalendarWeeks();
 
   return (
     <>
-      <ProjectPanel day={selectedDay} />
-      <CreateProjectPanel runServerless={runServerless} />
+      <ProjectPanel day={selectedDay} projects={projects} />
+      <CreateProjectPanel day={selectedDay} runServerless={runServerless} />
       <Table>
         <TableHead>
           <TableRow>
@@ -45,38 +60,26 @@ const Calendar = ({ runServerless }) => {
             return (
               <TableRow>
                 {week.map((day) => {
+                  let text = day;
+                  let panelName = "create-project";
                   if (projects[day]) {
-                    return (
-                      <TableCell>
-                        <Link
-                          href=""
-                          preventDefault
-                          onClick={(__event, reactions) => {
-                            setSelectedDay(day);
-                            reactions.openPanel("project-detail");
-                          }}
-                        >
-                          {getProjectSymbol(day)}
-                        </Link>
-                      </TableCell>
-                    );
+                    console.log("Project found for ===>", day, projects[day]);
+                    panelName = "project-detail";
+                    text = getProjectSymbol(day, projects);
                   }
 
-                  let symbol = "";
                   if (day === 25) {
-                    symbol = "🎅";
+                    text = `🎅 ${day} 🎅`;
                   }
-
-                  const today = new Date().getDate();
 
                   return (
                     <TableCell>
                       <Link
                         href=""
                         preventDefault
-                        onClick={(__event, reactions) => {
+                        onClick={(__evt, reactions) => {
                           setSelectedDay(day);
-                          reactions.openPanel("create-project");
+                          reactions.openPanel(panelName);
                         }}
                       >
                         <Text
@@ -84,7 +87,7 @@ const Calendar = ({ runServerless }) => {
                             fontWeight: day === today ? "bold" : "regular",
                           }}
                         >
-                          {`${symbol} ${day} ${symbol}`}
+                          {text}
                         </Text>
                       </Link>
                     </TableCell>

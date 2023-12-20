@@ -13,14 +13,21 @@ const client = new hubspotClient.Client({
 exports.main = async ({ parameters }) => {
   const { title, image, detail, symbol, day } = parameters;
 
-  return await client.cms.hubdb.rowsApi.createTableRow("advent_projects", {
-    values: {
-      name: title,
-      details: detail,
-      image: image,
-      symbol,
-      day,
-    },
-    path: ".",
-  });
+  const result = await client.cms.hubdb.rowsApi.createTableRow(
+    "advent_projects",
+    {
+      values: {
+        name: title,
+        detail,
+        image: image,
+        symbol,
+        day,
+      },
+      path: ".",
+    }
+  );
+
+  await client.cms.hubdb.tablesApi.publishDraftTable("advent_projects");
+
+  return result;
 };

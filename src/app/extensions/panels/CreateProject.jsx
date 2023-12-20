@@ -11,13 +11,12 @@ import {
   ButtonRow,
   Box,
 } from "@hubspot/ui-extensions";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import assets from "../data/assets.json";
 import { useProjectFormValidation } from "./reducer";
 
 export default function CreateProjectPanel({ runServerless, day, onSave }) {
-  const defaultDate = day ? { date: day, month: 11, year: 2023 } : undefined;
-  const { register, handleSubmit, handleReset, reset } =
+  const { register, handleSubmit, handleReset, reset, setValue } =
     useProjectFormValidation();
 
   const onSubmit = useCallback((values, reactions) => {
@@ -36,6 +35,13 @@ export default function CreateProjectPanel({ runServerless, day, onSave }) {
   const onReset = useCallback(() => {
     console.log("reset ===>!");
   }, []);
+
+  const defaultDate = day ? { date: day, month: 11, year: 2023 } : undefined;
+  useEffect(() => {
+    if (defaultDate) {
+      setValue("day", defaultDate);
+    }
+  }, [day]);
 
   return (
     <Panel

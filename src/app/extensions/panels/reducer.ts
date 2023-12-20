@@ -1,4 +1,4 @@
-import { Reducer, useCallback, useReducer } from "react";
+import { Reducer, useCallback, useReducer, useRef } from "react";
 import { runValidation } from "./validation";
 import { produce } from "immer";
 
@@ -80,6 +80,7 @@ export const useProjectFormValidation = () => {
     validationReducer,
     defaultState
   );
+  const registry = useRef({});
 
   const handleSubmit = useCallback(
     (handler) =>
@@ -112,6 +113,41 @@ export const useProjectFormValidation = () => {
     return dispatch({ type: "reset" });
   }, []);
 
+  const setValue = useCallback(
+    (fieldName) => (evt) => {
+      const value = registry.current[fieldName].onChange(evt);
+      dispatch({
+        type: "change",
+        payload: {
+          fieldName,
+          values: {
+            [fieldName]: value,
+          },
+          dirty: {
+            [fieldName]: true,
+          },
+        },
+      });
+    },
+    [dispatch, registry]
+  );
+
+  const setTouched = useCallback(
+    (fieldName) => (evt) => {
+      dispatch({
+        type: "touch",
+        payload: {
+          fieldName,
+          touched: {
+            [fieldName]: true,
+          },
+        },
+      });
+      registry.current[fieldName].onBlur(evt);
+    },
+    [dispatch, registry]
+  );
+
   const register = useCallback(
     (fieldName: string, props: RegisterProps = {}) => {
       let fieldState = {};
@@ -123,38 +159,14 @@ export const useProjectFormValidation = () => {
         };
       }
 
-      const { onChange = identity, onBlur = identity } = props;
+      const { onChange = identity, onBlur = identity, ...rest } = props;
+      registry.current[fieldName] = { onChange, onBlur, ...rest };
 
       return {
         name: fieldName,
         ...fieldState,
-        onBlur: (evt) => {
-          dispatch({
-            type: "touch",
-            payload: {
-              fieldName,
-              touched: {
-                [fieldName]: true,
-              },
-            },
-          });
-          onBlur(evt);
-        },
-        onChange: (evt) => {
-          const value = onChange(evt);
-          dispatch({
-            type: "change",
-            payload: {
-              fieldName,
-              values: {
-                [fieldName]: value,
-              },
-              dirty: {
-                [fieldName]: true,
-              },
-            },
-          });
-        },
+        onBlur: setTouched(fieldName),
+        onChange: setValue(fieldName),
       };
     },
     [state]
@@ -167,6 +179,12 @@ export const useProjectFormValidation = () => {
     isValid: !!state.success,
     getValues: () => state.values,
     reset,
+    setValue(fieldName: string, evt: any) {
+      return setValue(fieldName)(evt);
+    },
+    setTouched(fieldName: string, evt: any) {
+      return setTouched(fieldName)(evt);
+    },
     validation: state,
   };
 };

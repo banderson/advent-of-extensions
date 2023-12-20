@@ -9,7 +9,7 @@ import {
   TableRow,
   Text,
 } from "@hubspot/ui-extensions";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import ProjectPanel, { getProjectSymbol } from "./panels/ProjectDetail";
 import CreateProjectPanel from "./panels/CreateProject";
 import { getCalendarWeeks } from "./date-utils";
@@ -23,7 +23,7 @@ const Calendar = ({ runServerless }) => {
   const [projects, setProjects] = React.useState({});
   const today = new Date().getDate();
 
-  useEffect(() => {
+  const loadProjects = useCallback(() => {
     runServerless({ name: "projects" }).then((data) => {
       setProjects(
         data.response.results
@@ -35,6 +35,10 @@ const Calendar = ({ runServerless }) => {
           }, {})
       );
     });
+  }, [runServerless, setProjects]);
+
+  useEffect(() => {
+    loadProjects();
   }, []);
 
   const weeks = getCalendarWeeks();
@@ -42,7 +46,11 @@ const Calendar = ({ runServerless }) => {
   return (
     <>
       <ProjectPanel day={selectedDay} projects={projects} />
-      <CreateProjectPanel day={selectedDay} runServerless={runServerless} />
+      <CreateProjectPanel
+        day={selectedDay}
+        onSave={loadProjects}
+        runServerless={runServerless}
+      />
       <Table>
         <TableHead>
           <TableRow>

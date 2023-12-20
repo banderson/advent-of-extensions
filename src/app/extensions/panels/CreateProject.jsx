@@ -15,7 +15,7 @@ import React, { useCallback } from "react";
 import assets from "../data/assets.json";
 import { useProjectFormValidation } from "./reducer";
 
-export default function CreateProjectPanel({ runServerless, day }) {
+export default function CreateProjectPanel({ runServerless, day, onSave }) {
   const defaultDate = day ? { date: day, month: 11, year: 2023 } : undefined;
   const { register, handleSubmit, handleReset, reset } =
     useProjectFormValidation();
@@ -28,6 +28,7 @@ export default function CreateProjectPanel({ runServerless, day }) {
       .then(() => {
         reactions.closePanel("create-project");
         reset();
+        return onSave();
       })
       .catch(console.error);
   }, []);

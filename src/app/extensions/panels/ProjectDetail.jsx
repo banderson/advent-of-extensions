@@ -11,7 +11,7 @@ export default function ProjectDetailPanel({ day, projects }) {
         {project && (
           <>
             <Heading>
-              {getProjectSymbol(day, projects)} {project.title}
+              {getProjectSymbol(day, projects)} {project.name}
             </Heading>
             <Text>{project.detail}</Text>
             <Image src={project.image.url} />

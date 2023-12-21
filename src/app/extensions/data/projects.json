@@ -40,5 +40,29 @@
     "detail": "So far, I've been uploading the preview image for each example to GitHub, and then coming back into the source afterward to use the GitHub-generated URL for the image to show a preview in the Project Details Panel. Not a great workflow. It's time to help ourselves by using a little scripting magic to store those images right in our own portal's Filemanager, which also lets us have the image URLs ready to go when we hit publish rather than needing a followup task to clean that up.",
     "image": "16-gift-of-script.png",
     "symbol": "🤖"
+  },
+  "17": {
+    "title": "Project Creation Panel",
+    "detail": "The advent Calendar is cool and everything, but creating project entries has been an out-of-band affair. Extensions, to me, serve as an opportunity to bring things all in one package, so today we dive in to create a Project Creation Panel that lets you create new projects in the calendar UI itself.",
+    "image": "17-project-form.png",
+    "symbol": "↔️"
+  },
+  "18": {
+    "title": "A Valid Little Christmas",
+    "detail": "I FINALLY got the form validation into a good place. It took a lot of work, because most (all?) existing form validation libraries are incompatible with our way of rendering extensions (inside a web worker w/no DOM access). So I'm very please with this result.",
+    "image": "18-advent-validation.gif",
+    "symbol": "💂"
+  },
+  "19": {
+    "title": "Full HubDB Storage",
+    "detail": "I've been running scripts to upload images and then generating JSON stored in this repo as the data source for each Advent Project entry so far, but it felt like the right time to go all-in on storing things in HubDB. That's it. It's done now.",
+    "image": "19-hubdb.png",
+    "symbol": "💾"
+  },
+  "20": {
+    "title": "SUPER Secret Santa",
+    "detail": "For Today's submission, I selfishly expanded the Secret Santa app to go further, to augment the "Sensitive Data" mission that's happening, as a way to explore and document what our extensions have access to (and what they don't). It explores field-level permissions through the lense of a Secret Santa program, where admins have access to the secret_santa CRM property to manage it (and use in UI Extensions) but sales reps that don't have permission to see that property get a more limited view:",
+    "image": "20-super-secret.png",
+    "symbol": "🔒"
   }
 }

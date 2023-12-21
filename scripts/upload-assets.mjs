@@ -11,6 +11,10 @@ const filesToUpload = [
   "images/05-secret-santa.png",
   "images/14-hello-public-world.png",
   "images/16-gift-of-script.png",
+  "images/17-project-form.gif",
+  "images/18-advent-validation.gif",
+  "images/19-hubdb.png",
+  "images/20-super-secret.png",
 ];
 const fileMgrOptions = {
   rootPath: "advent",
